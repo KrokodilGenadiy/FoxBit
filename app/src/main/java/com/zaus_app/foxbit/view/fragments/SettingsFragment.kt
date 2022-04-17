@@ -15,9 +15,6 @@ import com.zaus_app.foxbit.view.viewmodels.SettingsViewModel
 class SettingsFragment : Fragment() {
 
     private var _binding: FragmentSettingBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
