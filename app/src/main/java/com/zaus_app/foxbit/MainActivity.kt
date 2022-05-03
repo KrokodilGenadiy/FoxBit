@@ -1,7 +1,9 @@
 package com.zaus_app.foxbit
 
+import android.Manifest
 import android.os.Bundle
 import android.view.Menu
+import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController

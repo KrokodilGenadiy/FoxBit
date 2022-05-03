@@ -9,7 +9,7 @@ class MainPagerAdapter(
     val fragments: ArrayList<Fragment>,
     fm: FragmentManager,
     lifecycle: Lifecycle
-) : FragmentStateAdapter(fm,lifecycle) {
+) : FragmentStateAdapter(fm, lifecycle) {
     override fun getItemCount(): Int = fragments.size
 
     override fun createFragment(position: Int): Fragment = fragments[position]
