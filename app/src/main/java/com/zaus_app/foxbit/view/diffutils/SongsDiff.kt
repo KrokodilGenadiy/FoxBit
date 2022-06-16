@@ -20,7 +20,7 @@ class SongsDiff(val oldList: MutableList<Song>, val newList: MutableList<Song>) 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return oldList[oldItemPosition].title == newList[newItemPosition].title &&
                 oldList[oldItemPosition].artist == newList[newItemPosition].artist &&
-                oldList[oldItemPosition].data == newList[newItemPosition].data
+                oldList[oldItemPosition].path == newList[newItemPosition].path
     }
 
 }

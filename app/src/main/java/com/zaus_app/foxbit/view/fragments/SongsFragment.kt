@@ -8,12 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.zaus_app.foxbit.R
+import com.zaus_app.foxbit.MainActivity
 import com.zaus_app.foxbit.data.entity.Song
 import com.zaus_app.foxbit.databinding.FragmentSongsBinding
 import com.zaus_app.foxbit.view.rv_adapters.SongsAdapter
 import com.zaus_app.moviefrumy.view.rv_adapters.diffutils.SongsDiff
-import java.util.ArrayList
+import java.io.File
+import kotlin.collections.ArrayList
 
 
 class SongsFragment : Fragment() {
@@ -42,17 +43,14 @@ class SongsFragment : Fragment() {
             adapter = songsAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
-
-        updateData(getSongsFromPhone())
-
+        updateData((requireActivity() as MainActivity).getAllSongs())
     }
 
-    fun getSongsFromPhone(): ArrayList<Song> {
+ /*   fun getSongsFromPhone(): ArrayList<Song> {
         val arrayList = ArrayList<Song>()
         val contentResolver = requireActivity().contentResolver
         val songUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
         val songCursor = contentResolver?.query(songUri, null, null, null, null)
-
         if (songCursor != null && songCursor.moveToFirst()) {
             val songId = songCursor.getColumnIndex(MediaStore.Audio.Media._ID)
             val songTitle = songCursor.getColumnIndex(MediaStore.Audio.Media.TITLE)
@@ -65,11 +63,11 @@ class SongsFragment : Fragment() {
                 val currentArtist = songCursor.getString(songArtist)
                 val currentData = songCursor.getString(songData)
                 val currentDate = songCursor.getLong(dateIndex)
-                arrayList.add(Song(currentId, currentTitle, currentArtist, currentData, currentDate))
+               // arrayList.add(Song(currentId, currentTitle, currentArtist, currentData, currentDate))
             }
         }
         return arrayList
-    }
+    } */
 
     fun updateData(newList: MutableList<Song>){
         val oldList = songsAdapter.getItems()
@@ -77,5 +75,10 @@ class SongsFragment : Fragment() {
         val diffResult = DiffUtil.calculateDiff(productDiff)
         songsAdapter.setItems(newList)
         diffResult.dispatchUpdatesTo(songsAdapter)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

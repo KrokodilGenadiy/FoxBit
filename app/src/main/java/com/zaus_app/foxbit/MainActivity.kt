@@ -2,6 +2,7 @@ package com.zaus_app.foxbit
 
 import android.Manifest
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.Menu
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
@@ -15,7 +16,9 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.navigation.fragment.NavHostFragment
+import com.zaus_app.foxbit.data.entity.Song
 import com.zaus_app.foxbit.databinding.ActivityMainBinding
+import java.io.File
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +32,39 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         initNavigation()
 
+    }
+
+    fun getAllSongs(): ArrayList<Song> {
+        val result = ArrayList<Song>()
+        val selection = MediaStore.Audio.Media.IS_MUSIC+ " != 0"
+        val projection = arrayOf(
+            MediaStore.Audio.Media._ID,
+            MediaStore.Audio.Media.TITLE,
+            MediaStore.Audio.Media.ALBUM,
+            MediaStore.Audio.Media.ARTIST,
+            MediaStore.Audio.Media.DURATION,
+            MediaStore.Audio.Media.DATA)
+        val cursor = contentResolver.query(
+            MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,projection,selection,null,
+            MediaStore.Audio.Media.DATE_ADDED + " DESC", null)
+        if (cursor != null) {
+            if (cursor.moveToFirst())
+                do {
+                    val id = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID))
+                    val title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE))
+                    val artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
+                    val album = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM))
+                    val path = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA))
+                    val duration = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION))
+                    val song = Song(id,title,album,artist, duration, path)
+                    val file = File(song.path)
+                    if (file.exists() && file.name.endsWith(".mp3") && !(file.path.contains("Recordings") || file.path.contains("recordings")))  {
+                        result.add(song)
+                    }
+                } while (cursor.moveToNext())
+            cursor.close()
+        }
+        return result
     }
 
     private fun initNavigation() {

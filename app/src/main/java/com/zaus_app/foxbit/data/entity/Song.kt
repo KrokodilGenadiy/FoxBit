@@ -4,9 +4,10 @@ import android.provider.MediaStore
 
 
 data class Song(
-    val id: Long,
+    val id: String,
     val title: String,
+    val album: String,
     val artist: String,
-    val data: String,
-    val date: Long
+    val duration: Long,
+    val path: String
 )
