@@ -11,4 +11,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="songs_tab">Songs</string>
     <string name="albums_tab">Albums</string>
+    <string name="unknown_artist">Unknown</string>
+    <string name="hyphen">-</string>
 </resources>

@@ -46,30 +46,7 @@ class SongsFragment : Fragment() {
         updateData((requireActivity() as MainActivity).getAllSongs())
     }
 
- /*   fun getSongsFromPhone(): ArrayList<Song> {
-        val arrayList = ArrayList<Song>()
-        val contentResolver = requireActivity().contentResolver
-        val songUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
-        val songCursor = contentResolver?.query(songUri, null, null, null, null)
-        if (songCursor != null && songCursor.moveToFirst()) {
-            val songId = songCursor.getColumnIndex(MediaStore.Audio.Media._ID)
-            val songTitle = songCursor.getColumnIndex(MediaStore.Audio.Media.TITLE)
-            val songArtist = songCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST)
-            val songData = songCursor.getColumnIndex(MediaStore.Audio.Media.DATA)
-            val dateIndex = songCursor.getColumnIndex(MediaStore.Audio.Media.DATE_ADDED)
-            while (songCursor.moveToNext()) {
-                val currentId = songCursor.getLong(songId)
-                val currentTitle = songCursor.getString(songTitle)
-                val currentArtist = songCursor.getString(songArtist)
-                val currentData = songCursor.getString(songData)
-                val currentDate = songCursor.getLong(dateIndex)
-               // arrayList.add(Song(currentId, currentTitle, currentArtist, currentData, currentDate))
-            }
-        }
-        return arrayList
-    } */
-
-    fun updateData(newList: MutableList<Song>){
+    private fun updateData(newList: MutableList<Song>){
         val oldList = songsAdapter.getItems()
         val productDiff = SongsDiff(oldList,newList)
         val diffResult = DiffUtil.calculateDiff(productDiff)

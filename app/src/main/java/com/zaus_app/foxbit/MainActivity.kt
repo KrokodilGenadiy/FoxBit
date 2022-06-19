@@ -34,9 +34,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun getAllSongs(): ArrayList<Song> {
+ fun getAllSongs(): ArrayList<Song> {
         val result = ArrayList<Song>()
-        val selection = MediaStore.Audio.Media.IS_MUSIC+ " != 0"
+        val selection = MediaStore.Audio.Media.IS_MUSIC+ "!=0"
         val projection = arrayOf(
             MediaStore.Audio.Media._ID,
             MediaStore.Audio.Media.TITLE,
@@ -50,15 +50,17 @@ class MainActivity : AppCompatActivity() {
         if (cursor != null) {
             if (cursor.moveToFirst())
                 do {
+                    val path = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA))
+                    val file = File(path)
+                    //TODO Need to change how selection works to be more certain
+                    if (file.exists() && file.name.endsWith(".mp3") && !(file.path.contains("Recordings") || file.path.contains("recordings")))  {
                     val id = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID))
                     val title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE))
                     val artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
                     val album = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM))
-                    val path = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA))
                     val duration = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION))
+                 //    val pack = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.IS_MUSIC))
                     val song = Song(id,title,album,artist, duration, path)
-                    val file = File(song.path)
-                    if (file.exists() && file.name.endsWith(".mp3") && !(file.path.contains("Recordings") || file.path.contains("recordings")))  {
                         result.add(song)
                     }
                 } while (cursor.moveToNext())

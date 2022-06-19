@@ -8,10 +8,16 @@ class SongsViewHolder(binding: SongItemBinding) : RecyclerView.ViewHolder(bindin
 
     private val title = binding.songTitle
     private val artist = binding.songArtist
+    private val pack = binding.pack
 
 
     fun bind(song: Song) {
         title.text = song.title
-        artist.text = song.artist
+        if (song.artist == "<unknown>")
+            //TODO: should get string from resources
+            artist.text = "Unknown"
+        else
+            artist.text = song.artist
+        //pack.text = song.pack
     }
 }
