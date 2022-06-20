@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import com.zaus_app.foxbit.R
 
 class AlbumsFragment : Fragment() {
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

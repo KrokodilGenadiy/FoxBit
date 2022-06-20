@@ -60,7 +60,6 @@ class HomeFragment : Fragment() {
             SongsFragment(),
             AlbumsFragment()
         )
-
         binding.pager.adapter = MainPagerAdapter(fragments, childFragmentManager, lifecycle)
         TabLayoutMediator(binding.tabs, binding.pager) { tab, position ->
             tab.text = resources.getString(TAB_TITLES[position])

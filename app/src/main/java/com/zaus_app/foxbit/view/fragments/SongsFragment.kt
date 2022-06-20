@@ -1,7 +1,6 @@
 package com.zaus_app.foxbit.view.fragments
 
 import android.os.Bundle
-import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +12,6 @@ import com.zaus_app.foxbit.data.entity.Song
 import com.zaus_app.foxbit.databinding.FragmentSongsBinding
 import com.zaus_app.foxbit.view.rv_adapters.SongsAdapter
 import com.zaus_app.moviefrumy.view.rv_adapters.diffutils.SongsDiff
-import java.io.File
-import kotlin.collections.ArrayList
 
 
 class SongsFragment : Fragment() {
@@ -43,7 +40,8 @@ class SongsFragment : Fragment() {
             adapter = songsAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
-        updateData((requireActivity() as MainActivity).getAllSongs())
+        //TODO causes lag when navigation to Home in navigaiton drawer
+          updateData((requireActivity() as MainActivity).getAllSongs())
     }
 
     private fun updateData(newList: MutableList<Song>){

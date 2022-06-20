@@ -22,5 +22,4 @@ class SongsDiff(val oldList: MutableList<Song>, val newList: MutableList<Song>) 
                 oldList[oldItemPosition].artist == newList[newItemPosition].artist &&
                 oldList[oldItemPosition].path == newList[newItemPosition].path
     }
-
 }
