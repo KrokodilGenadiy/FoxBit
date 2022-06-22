@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="70dp">
 
+    <!-- TODO Change this layout to more appropriate -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/song_info"
         android:layout_width="0dp"

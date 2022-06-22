@@ -8,9 +8,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/albums_recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="8dp"
         android:nestedScrollingEnabled="true"
-        tools:listitem="@layout/song_item" />
+        tools:listitem="@layout/album_item" />
 
 </FrameLayout>

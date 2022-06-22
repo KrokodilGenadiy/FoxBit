@@ -1,24 +1,22 @@
 package com.zaus_app.foxbit
 
-import android.Manifest
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.Menu
-import androidx.activity.result.contract.ActivityResultContracts
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.navigation.NavigationView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
-import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.navigation.NavigationView
+import com.zaus_app.foxbit.data.entity.Album
 import com.zaus_app.foxbit.data.entity.Song
 import com.zaus_app.foxbit.databinding.ActivityMainBinding
 import java.io.File
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -62,6 +60,35 @@ class MainActivity : AppCompatActivity() {
                  //    val pack = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.IS_MUSIC))
                     val song = Song(id,title,album,artist, duration, path)
                         result.add(song)
+                    }
+                } while (cursor.moveToNext())
+            cursor.close()
+        }
+        return result
+    }
+
+    fun getAllAlbums(): ArrayList<Album> {
+        val result = ArrayList<Album>()
+        val selection = MediaStore.Audio.Media.ALBUM_ID+ "!= ?"
+        val projection = arrayOf(
+            MediaStore.Audio.Albums.ALBUM_ID,
+            MediaStore.Audio.Albums.ALBUM,
+            MediaStore.Audio.Albums.ARTIST,
+        )
+        val cursor = contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,projection,selection,null, MediaStore.Audio.Media.ALBUM + " ASC", null)
+        if (cursor != null) {
+            if (cursor.moveToFirst())
+                do {
+                    val album_id = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ID))
+                    val title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM))
+                    val artist = cursor.getString(cursor.getColumnIndex( MediaStore.Audio.Albums.ARTIST))
+                    val album = Album(album_id, title, artist)
+                    if (result.isEmpty())
+                        result.add(album)
+                    result.forEach {
+                        if (it.album_id != album.album_id) {
+                            result.add(album)
+                        }
                     }
                 } while (cursor.moveToNext())
             cursor.close()
