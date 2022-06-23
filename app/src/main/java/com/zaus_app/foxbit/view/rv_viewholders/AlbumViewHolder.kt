@@ -6,11 +6,17 @@ import com.zaus_app.foxbit.data.entity.Song
 import com.zaus_app.foxbit.databinding.AlbumItemBinding
 import com.zaus_app.foxbit.databinding.SongItemBinding
 
-class AlbumViewHolder(binding: AlbumItemBinding) : RecyclerView.ViewHolder(binding.root) {
+class AlbumViewHolder(binding: AlbumItemBinding,clickAtPosition: (Int) -> Unit) : RecyclerView.ViewHolder(binding.root) {
 
     private val title = binding.songTitle
     private val artist = binding.songArtist
 
+
+    init {
+        binding.root.setOnClickListener {
+            clickAtPosition(adapterPosition)
+        }
+    }
 
     fun bind(album: Album) {
         title.text = album.title

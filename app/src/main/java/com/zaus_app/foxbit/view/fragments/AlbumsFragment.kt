@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zaus_app.foxbit.MainActivity
@@ -24,6 +25,7 @@ class AlbumsFragment : Fragment() {
     private val albumsAdapter by lazy {
         AlbumsAdapter(object : AlbumsAdapter.OnItemClickListener {
             override fun click(album: Album) {
+                Toast.makeText(requireContext(),album.title, Toast.LENGTH_SHORT).show()
                 // (requireActivity() as MainActivity).launchDetailsFragment(film)
             }
         })

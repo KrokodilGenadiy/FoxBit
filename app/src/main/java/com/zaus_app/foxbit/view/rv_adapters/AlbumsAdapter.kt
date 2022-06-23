@@ -14,16 +14,15 @@ class AlbumsAdapter(private val clickListener: OnItemClickListener) : RecyclerVi
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = AlbumItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return AlbumViewHolder(binding)
+        return AlbumViewHolder(binding) {
+            clickListener.click(items[it])
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is AlbumViewHolder -> {
                 holder.bind(items[position])
-                holder.itemView.setOnClickListener {
-                    clickListener.click(items[position])
-                }
             }
         }
     }
