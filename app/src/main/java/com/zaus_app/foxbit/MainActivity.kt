@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
  fun getAllSongs(): ArrayList<Song> {
         val result = ArrayList<Song>()
-        val selection = MediaStore.Audio.Media.IS_MUSIC+ "!=0"
+        val selection = MediaStore.Audio.Media.IS_MUSIC+ "!=0"  + " AND "+ MediaStore.Audio.Media.IS_RECORDING + "==0"
         val projection = arrayOf(
             MediaStore.Audio.Media._ID,
             MediaStore.Audio.Media.TITLE,
@@ -50,14 +50,12 @@ class MainActivity : AppCompatActivity() {
                 do {
                     val path = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA))
                     val file = File(path)
-                    //TODO Need to change how selection works to be more certain
-                    if (file.exists() && file.name.endsWith(".mp3") && !(file.path.contains("Recordings") || file.path.contains("recordings")))  {
+                    if (file.exists()) {
                     val id = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID))
                     val title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE))
                     val artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
                     val album = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM))
                     val duration = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION))
-                 //    val pack = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.IS_MUSIC))
                     val song = Song(id,title,album,artist, duration, path)
                         result.add(song)
                     }
@@ -69,7 +67,7 @@ class MainActivity : AppCompatActivity() {
 
     fun getAllAlbums(): ArrayList<Album> {
         val result = ArrayList<Album>()
-        val selection = MediaStore.Audio.Media.DURATION + ">= 60000" + " AND "+ MediaStore.Audio.Media.IS_RECORDING + "==0"
+        val selection = MediaStore.Audio.Media.IS_MUSIC+ "!=0" + " AND "+ MediaStore.Audio.Media.IS_RECORDING + "==0"
         val projection = arrayOf(
             MediaStore.Audio.Albums.ALBUM_ID,
             MediaStore.Audio.Albums.ALBUM,
@@ -83,7 +81,15 @@ class MainActivity : AppCompatActivity() {
                     val title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM))
                     val artist = cursor.getString(cursor.getColumnIndex( MediaStore.Audio.Albums.ARTIST))
                     val album = Album(album_id, title, artist)
-                    result.add(album)
+                    if (result.isEmpty())
+                        result.add(album)
+                    else
+                        for (i in result.indices) {
+                            if (result[i].title != album.title) {
+                                result.add(album)
+                                break
+                            }
+                        }
                 } while (cursor.moveToNext())
             cursor.close()
         }
