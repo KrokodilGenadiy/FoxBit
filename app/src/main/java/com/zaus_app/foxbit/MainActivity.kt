@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
     fun getAllAlbums(): ArrayList<Album> {
         val result = ArrayList<Album>()
-        val selection = MediaStore.Audio.Media.ALBUM_ID+ "!= ?"
+        val selection = MediaStore.Audio.Media.DURATION + ">= 60000" + " AND "+ MediaStore.Audio.Media.IS_RECORDING + "==0"
         val projection = arrayOf(
             MediaStore.Audio.Albums.ALBUM_ID,
             MediaStore.Audio.Albums.ALBUM,
@@ -83,13 +83,7 @@ class MainActivity : AppCompatActivity() {
                     val title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM))
                     val artist = cursor.getString(cursor.getColumnIndex( MediaStore.Audio.Albums.ARTIST))
                     val album = Album(album_id, title, artist)
-                    if (result.isEmpty())
-                        result.add(album)
-                    result.forEach {
-                        if (it.album_id != album.album_id) {
-                            result.add(album)
-                        }
-                    }
+                    result.add(album)
                 } while (cursor.moveToNext())
             cursor.close()
         }
