@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
- fun getAllSongs(): ArrayList<Song> {
+    fun getAllSongs(): ArrayList<Song> {
         val result = ArrayList<Song>()
         val selection = MediaStore.Audio.Media.IS_MUSIC+ "!=0"  + " AND "+ MediaStore.Audio.Media.IS_RECORDING + "==0"
         val projection = arrayOf(

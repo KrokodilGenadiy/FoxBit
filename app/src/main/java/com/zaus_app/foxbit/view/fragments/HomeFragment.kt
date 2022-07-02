@@ -30,6 +30,7 @@ class HomeFragment : Fragment() {
         R.string.albums_tab
     )
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val permReqLuncher = registerForActivityResult(ActivityResultContracts.RequestPermission()){
