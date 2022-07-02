@@ -2,9 +2,8 @@ package com.zaus_app.foxbit.view.rv_viewholders
 
 import androidx.recyclerview.widget.RecyclerView
 import com.zaus_app.foxbit.data.entity.Album
-import com.zaus_app.foxbit.data.entity.Song
 import com.zaus_app.foxbit.databinding.AlbumItemBinding
-import com.zaus_app.foxbit.databinding.SongItemBinding
+
 
 class AlbumViewHolder(binding: AlbumItemBinding,clickAtPosition: (Int) -> Unit) : RecyclerView.ViewHolder(binding.root) {
 
@@ -25,6 +24,5 @@ class AlbumViewHolder(binding: AlbumItemBinding,clickAtPosition: (Int) -> Unit) 
             artist.text = "Unknown"
         else
             artist.text = album.artist
-        //pack.text = song.pack
     }
 }
