@@ -5,6 +5,7 @@ import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -15,21 +16,21 @@ import com.google.android.material.navigation.NavigationView
 import com.zaus_app.foxbit.data.entity.Album
 import com.zaus_app.foxbit.data.entity.Song
 import com.zaus_app.foxbit.databinding.ActivityMainBinding
+import com.zaus_app.foxbit.view.fragments.NavigationFragment
 import java.io.File
 
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-
-
+    private lateinit var appBarConfiguration: AppBarConfiguration
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initNavigation()
-
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_placeholder, NavigationFragment(), "navigation")
+            .commit()
     }
 
     fun getAllSongs(): ArrayList<Song> {
@@ -96,29 +97,15 @@ class MainActivity : AppCompatActivity() {
         return result
     }
 
-    private fun initNavigation() {
-        setSupportActionBar(binding.appBarMain.toolbar)
-
-        val drawerLayout: DrawerLayout = binding.drawerLayout
-        val navView: NavigationView = binding.navView
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
-        val navController = navHostFragment.navController
-        appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.nav_home, R.id.nav_settings
-            ), drawerLayout
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
-    }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+        val navigationFragment: NavigationFragment = supportFragmentManager.findFragmentByTag("navigation") as NavigationFragment
+        return navigationFragment.navigateUp() || super.onSupportNavigateUp()
     }
 
     override fun onBackPressed() {
-        val drawerLayout = binding.drawerLayout
+        val navigationFragment: NavigationFragment = supportFragmentManager.findFragmentByTag("navigation") as NavigationFragment
+        val drawerLayout = navigationFragment.getDrawer()
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
