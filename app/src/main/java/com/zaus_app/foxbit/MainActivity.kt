@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     fun getAllSongs(): ArrayList<Song> {
         val result = ArrayList<Song>()
         val selection =
-            MediaStore.Audio.Media.IS_MUSIC + "!=0" + " AND " + MediaStore.Audio.Media.IS_RECORDING + "==0"
+            MediaStore.Audio.Media.IS_MUSIC + "!=0" // + " AND " + MediaStore.Audio.Media.IS_RECORDING + "==0"
         val projection = arrayOf(
             MediaStore.Audio.Media._ID,
             MediaStore.Audio.Media.TITLE,
@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
     fun getAllAlbums(): ArrayList<Album> {
         val result = ArrayList<Album>()
         val selection =
-            MediaStore.Audio.Media.IS_MUSIC + "!=0" + " AND " + MediaStore.Audio.Media.IS_RECORDING + "==0"
+            MediaStore.Audio.Media.IS_MUSIC + "!=0"// + " AND " + MediaStore.Audio.Media.IS_RECORDING + "==0"
         val projection = arrayOf(
             MediaStore.Audio.Albums.ALBUM_ID,
             MediaStore.Audio.Albums.ALBUM,
