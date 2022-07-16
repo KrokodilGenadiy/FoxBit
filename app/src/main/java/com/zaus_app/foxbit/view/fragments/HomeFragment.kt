@@ -30,22 +30,6 @@ class HomeFragment : Fragment() {
         R.string.albums_tab
     )
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val permReqLuncher = registerForActivityResult(ActivityResultContracts.RequestPermission()){
-            if (it) {
-                Toast.makeText(requireContext(),"Permission granted",Toast.LENGTH_SHORT).show()
-            } else {
-              ActivityResultContracts.RequestPermission()
-            }
-        }
-        if (!checkPermission()) {
-            permReqLuncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        }
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -65,22 +49,6 @@ class HomeFragment : Fragment() {
         TabLayoutMediator(binding.tabs, binding.pager) { tab, position ->
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
-    }
-
-    private fun checkPermission(): Boolean {
-        val result = ContextCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
-        return result == PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun requestPermission() {
-        ActivityCompat.requestPermissions(
-            requireActivity(),
-            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-            1
-        )
     }
 
     override fun onDestroyView() {

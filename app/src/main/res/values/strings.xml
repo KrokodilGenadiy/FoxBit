@@ -13,4 +13,5 @@
     <string name="albums_tab">Albums</string>
     <string name="unknown_artist">Unknown</string>
     <string name="hyphen">-</string>
+    <string name="permission_description">FoxBit is an app, that allows to listen to music and manage your music content. To work properly the applications requires an access to data in the device memory. For more information please check <a href="https://www.google.ru/">Privacy policy</a></string>
 </resources>
