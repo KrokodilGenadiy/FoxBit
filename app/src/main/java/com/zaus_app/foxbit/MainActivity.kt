@@ -13,6 +13,7 @@ import com.zaus_app.foxbit.data.entity.Song
 import com.zaus_app.foxbit.databinding.ActivityMainBinding
 import com.zaus_app.foxbit.view.fragments.NavigationFragment
 import com.zaus_app.foxbit.view.fragments.PermissionFragment
+import com.zaus_app.foxbit.view.fragments.PlayerFragment
 import java.io.File
 
 
@@ -122,6 +123,22 @@ class MainActivity : AppCompatActivity() {
         }
         return result
     }
+
+    fun launchPlayerFragment(song: Song) {
+        val bundle = Bundle()
+        bundle.putParcelable("song", song)
+        val fragment = checkFragmentExistence("player") ?: PlayerFragment()
+        fragment.arguments = bundle
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_placeholder, fragment, "player")
+            .addToBackStack("player")
+            .commit()
+    }
+
+    private fun checkFragmentExistence(tag: String): Fragment? =
+        supportFragmentManager.findFragmentByTag(tag)
 
 
     override fun onSupportNavigateUp(): Boolean {

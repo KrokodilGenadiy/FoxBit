@@ -21,8 +21,7 @@ class SongsFragment : Fragment() {
     private val songsAdapter by lazy {
         SongsAdapter(object : SongsAdapter.OnItemClickListener {
             override fun click(song: Song) {
-                Toast.makeText(requireContext(),song.title,Toast.LENGTH_SHORT).show()
-                // (requireActivity() as MainActivity).launchDetailsFragment(film)
+                 (requireActivity() as MainActivity).launchPlayerFragment(song)
             }
         })
     }
