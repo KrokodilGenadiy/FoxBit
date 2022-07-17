@@ -3,7 +3,7 @@ package com.zaus_app.moviefrumy.view.rv_adapters.diffutils
 import androidx.recyclerview.widget.DiffUtil
 import com.zaus_app.foxbit.data.entity.Song
 
-class SongsDiff(val oldList: MutableList<Song>, val newList: MutableList<Song>) :
+class SongsDiff(val oldList: List<Song>, val newList: List<Song>) :
     DiffUtil.Callback() {
     override fun getOldListSize(): Int {
         return oldList.size

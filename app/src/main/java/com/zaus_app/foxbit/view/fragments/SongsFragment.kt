@@ -20,8 +20,8 @@ class SongsFragment : Fragment() {
     private val binding get() = _binding!!
     private val songsAdapter by lazy {
         SongsAdapter(object : SongsAdapter.OnItemClickListener {
-            override fun click(song: Song) {
-                 (requireActivity() as MainActivity).launchPlayerFragment(song)
+            override fun click(songs: List<Song>,position: Int) {
+                 (requireActivity() as MainActivity).launchPlayerFragment(songs,position)
             }
         })
     }
@@ -45,7 +45,7 @@ class SongsFragment : Fragment() {
           updateData((requireActivity() as MainActivity).getAllSongs())
     }
 
-    private fun updateData(newList: MutableList<Song>){
+    private fun updateData(newList: List<Song>){
         val oldList = songsAdapter.getItems()
         val productDiff = SongsDiff(oldList,newList)
         val diffResult = DiffUtil.calculateDiff(productDiff)

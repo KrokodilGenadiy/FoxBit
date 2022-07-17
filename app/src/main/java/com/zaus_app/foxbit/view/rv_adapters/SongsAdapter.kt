@@ -8,14 +8,14 @@ import com.zaus_app.foxbit.databinding.SongItemBinding
 import com.zaus_app.foxbit.view.rv_viewholders.SongsViewHolder
 
 class SongsAdapter(private val clickListener: OnItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var items = mutableListOf<Song>()
+    private var items = listOf<Song>()
 
     override fun getItemCount() = items.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = SongItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return SongsViewHolder(binding) {
-            clickListener.click(items[it])
+            clickListener.click(items, it)
         }
     }
 
@@ -27,16 +27,16 @@ class SongsAdapter(private val clickListener: OnItemClickListener) : RecyclerVie
         }
     }
 
-    fun getItems(): MutableList<Song> {
+    fun getItems(): List<Song> {
         return items
     }
 
-    fun setItems(list: MutableList<Song>) {
+    fun setItems(list: List<Song>) {
         this.items = list
     }
 
     interface OnItemClickListener {
-        fun click(song: Song)
+        fun click(songs: List<Song>,position: Int)
     }
 
 

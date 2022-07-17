@@ -124,9 +124,10 @@ class MainActivity : AppCompatActivity() {
         return result
     }
 
-    fun launchPlayerFragment(song: Song) {
+    fun launchPlayerFragment(songs: List<Song>,position: Int) {
         val bundle = Bundle()
-        bundle.putParcelable("song", song)
+        bundle.putParcelableArrayList("songs", ArrayList(songs))
+        bundle.putInt("position", position)
         val fragment = checkFragmentExistence("player") ?: PlayerFragment()
         fragment.arguments = bundle
 
