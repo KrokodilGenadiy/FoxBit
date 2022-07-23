@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import com.zaus_app.foxbit.MainActivity
+import com.zaus_app.foxbit.view.MainActivity
 import com.zaus_app.foxbit.databinding.FragmentPermissionBinding
 
 

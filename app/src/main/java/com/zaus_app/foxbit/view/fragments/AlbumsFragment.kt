@@ -8,16 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.zaus_app.foxbit.MainActivity
-import com.zaus_app.foxbit.R
+import com.zaus_app.foxbit.view.MainActivity
 import com.zaus_app.foxbit.data.entity.Album
-import com.zaus_app.foxbit.data.entity.Song
 import com.zaus_app.foxbit.databinding.FragmentAlbumsBinding
-import com.zaus_app.foxbit.databinding.FragmentSongsBinding
 import com.zaus_app.foxbit.view.diffutils.AlbumDiff
 import com.zaus_app.foxbit.view.rv_adapters.AlbumsAdapter
-import com.zaus_app.foxbit.view.rv_adapters.SongsAdapter
-import com.zaus_app.moviefrumy.view.rv_adapters.diffutils.SongsDiff
 
 class AlbumsFragment : Fragment() {
     private var _binding: FragmentAlbumsBinding? = null

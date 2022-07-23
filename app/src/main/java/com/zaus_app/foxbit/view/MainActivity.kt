@@ -1,4 +1,4 @@
-package com.zaus_app.foxbit
+package com.zaus_app.foxbit.view
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import com.zaus_app.foxbit.R
 import com.zaus_app.foxbit.data.entity.Album
 import com.zaus_app.foxbit.data.entity.Song
 import com.zaus_app.foxbit.databinding.ActivityMainBinding
@@ -124,9 +125,8 @@ class MainActivity : AppCompatActivity() {
         return result
     }
 
-    fun launchPlayerFragment(songs: List<Song>,position: Int) {
+    fun launchPlayerFragment(position: Int) {
         val bundle = Bundle()
-        bundle.putParcelableArrayList("songs", ArrayList(songs))
         bundle.putInt("position", position)
         val fragment = checkFragmentExistence("player") ?: PlayerFragment()
         fragment.arguments = bundle

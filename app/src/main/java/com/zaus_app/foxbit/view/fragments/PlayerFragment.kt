@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.zaus_app.foxbit.App
 import com.zaus_app.foxbit.data.entity.Song
 import com.zaus_app.foxbit.databinding.FragmentPlayerBinding
 import com.zaus_app.foxbit.view.viewmodels.PlayerViewModel
@@ -15,7 +16,7 @@ import com.zaus_app.foxbit.view.viewmodels.PlayerViewModel
 class PlayerFragment : Fragment() {
     private var _binding: FragmentPlayerBinding? = null
     private val binding get() = _binding!!
-    private lateinit var songs: ArrayList<Song>
+    private lateinit var songs: List<Song>
     private var position: Int = 0
     private var _mediaPlayer: MediaPlayer? = null
     private val mediaPlayer get() = _mediaPlayer!!
@@ -31,7 +32,7 @@ class PlayerFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        songs =  arguments?.get("songs") as ArrayList<Song>
+        songs =  App.instance.songList
         position = arguments?.get("position") as Int
         if (_mediaPlayer == null)
             _mediaPlayer = MediaPlayer()

@@ -15,7 +15,7 @@ class SongsAdapter(private val clickListener: OnItemClickListener) : RecyclerVie
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = SongItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return SongsViewHolder(binding) {
-            clickListener.click(items, it)
+            clickListener.click(it)
         }
     }
 
@@ -36,7 +36,7 @@ class SongsAdapter(private val clickListener: OnItemClickListener) : RecyclerVie
     }
 
     interface OnItemClickListener {
-        fun click(songs: List<Song>,position: Int)
+        fun click(position: Int)
     }
 
 

@@ -5,10 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.zaus_app.foxbit.MainActivity
+import com.zaus_app.foxbit.App
+import com.zaus_app.foxbit.view.MainActivity
 import com.zaus_app.foxbit.data.entity.Song
 import com.zaus_app.foxbit.databinding.FragmentSongsBinding
 import com.zaus_app.foxbit.view.rv_adapters.SongsAdapter
@@ -18,10 +18,11 @@ import com.zaus_app.moviefrumy.view.rv_adapters.diffutils.SongsDiff
 class SongsFragment : Fragment() {
     private var _binding: FragmentSongsBinding? = null
     private val binding get() = _binding!!
+    private var songs = App.instance.songList
     private val songsAdapter by lazy {
         SongsAdapter(object : SongsAdapter.OnItemClickListener {
-            override fun click(songs: List<Song>,position: Int) {
-                 (requireActivity() as MainActivity).launchPlayerFragment(songs,position)
+            override fun click(position: Int) {
+                 (requireActivity() as MainActivity).launchPlayerFragment(position)
             }
         })
     }
@@ -42,7 +43,11 @@ class SongsFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
         }
         //TODO causes lag when navigation to Home in navigaiton drawer
-          updateData((requireActivity() as MainActivity).getAllSongs())
+        if (songs.isEmpty()) {
+            App.instance.songList = (requireActivity() as MainActivity).getAllSongs()
+            songs = App.instance.songList
+        }
+        updateData(songs)
     }
 
     private fun updateData(newList: List<Song>){
