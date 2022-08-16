@@ -4,10 +4,14 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zaus_app.foxbit.R
 import com.zaus_app.foxbit.data.entity.Album
 import com.zaus_app.foxbit.data.entity.Song
@@ -126,16 +130,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun launchPlayerFragment(position: Int) {
+        val playerFragment =  ((checkFragmentExistence("player") ?: PlayerFragment()) as BottomSheetDialogFragment)
         val bundle = Bundle()
         bundle.putInt("position", position)
-        val fragment = checkFragmentExistence("player") ?: PlayerFragment()
-        fragment.arguments = bundle
-
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fragment_placeholder, fragment, "player")
-            .addToBackStack("player")
-            .commit()
+        playerFragment.arguments = bundle
+        playerFragment.show(supportFragmentManager, "player")
     }
 
     private fun checkFragmentExistence(tag: String): Fragment? =
